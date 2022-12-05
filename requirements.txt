@@ -1,3 +1,5 @@
 Django
 djangorestframework
 faker
+django-filter
+markdown
