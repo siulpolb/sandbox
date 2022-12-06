@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import logging
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +29,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 INSTALLED_APPS = [
+    "django_extensions",
+    "debug_toolbar",
     "rest_framework",
     "polls.apps.PollsConfig",
     "django.contrib.admin",
@@ -40,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -126,3 +134,52 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10
 }
+
+_manage_command = [arg for arg in sys.argv if "manage.py" in arg]
+
+if len(_manage_command):
+    command = sys.argv.index(_manage_command[0]) + 1
+    if command < len(sys.argv):
+        command = sys.argv[command]
+        TEST = command == "test"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "NOTSET",
+    },
+    "loggers": {
+        "django": {
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "django.utils": {
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "django.request": {
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "django.db.backends": {
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "django.template": {
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "faker": {
+            "level": "ERROR",
+            "propagate": True,
+        },
+    }
+}
+# logging.disable(getattr(logging, "NOTSET"))
