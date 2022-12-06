@@ -2,8 +2,8 @@ from django.contrib.auth.models import User, Group
 from rest_framework import permissions
 from rest_framework import viewsets
 
-from polls.models import Question
-from .serializers import UserSerializer, GroupSerializer
+from polls.models import Question, Choice
+from .serializers import UserSerializer, GroupSerializer, QuestionSerializer, ChoiceSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -29,5 +29,14 @@ class QuestionViewSet(viewsets.ModelViewSet):
     API endpoint that allows polls to be viewed or edited.
     """
     queryset = Question.objects.all()
-    serializer_class = GroupSerializer
+    serializer_class = QuestionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class ChoiceViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows polls to be viewed or edited.
+    """
+    queryset = Choice.objects.all()
+    serializer_class = ChoiceSerializer
     permission_classes = [permissions.IsAuthenticated]

@@ -3,3 +3,5 @@ djangorestframework
 faker
 django-filter
 markdown
+django-debug-toolbar                    # A configurable set of panels that display various debug information
+django-extensions                       # A collection of helpful commands such as shell_plus
