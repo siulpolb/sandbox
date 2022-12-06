@@ -8,10 +8,14 @@ As a programming exercise do the following:
 
 ## Instructions for Running
 * Create a new virtual environment
-        python -m venv sandbox-env
+
+      python -m venv sandbox-env
 * Install requirements
-        pip install --requirement=requirements.txt
+
+      pip install --requirement=requirements.txt
 * Run tests
-        python manage.py test
+
+      python manage.py test
 * Run the site (user is `admin` and password is `asdfASDF1234`)
-        python manage.py runserver 
+
+      python manage.py runserver 
