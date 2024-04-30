@@ -10,6 +10,9 @@ As a programming exercise do the following:
 * Create a new virtual environment
 
       python -m venv sandbox-env
+* Switch to the new environment
+  
+      source sandbox-env/bin/activate 
 * Install requirements
 
       pip install --requirement=requirements.txt
